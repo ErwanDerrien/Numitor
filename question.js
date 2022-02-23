@@ -49,8 +49,6 @@ class QuestionController {
             ddbResponse = await ddbClient.scan(params).promise();
         }
 
-        delete ddbResponse.Items[0].id;
-
         return {
             statusCode: 200,
             body: JSON.stringify(ddbResponse.Items[0]),
