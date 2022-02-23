@@ -7,7 +7,7 @@ const ddbClient = new AWS.DynamoDB.DocumentClient({
     }
 });
 
-class QuestionController {
+class AnswerController {
     
     async processRequest(httpMethod, path, headers) {
         if (httpMethod === 'GET') {
@@ -22,13 +22,18 @@ class QuestionController {
     }
     
     async processGet(path) {
+
+        const id = path.substring(path.lastIndexOf('/') + 1);
+
+        const ddbResponse = await ddbClient.get({ TableName: 'numitor.answers', Key: { id: id } }).promise();
+
         return {
-            statusCode: 501,
-            body: 'Not Implemented'
+            statusCode: 200,
+            body: JSON.stringify(ddbResponse.Item)
         }
     }
 }
 
 module.exports = {
-    QuestionController,
+    AnswerController,
 };

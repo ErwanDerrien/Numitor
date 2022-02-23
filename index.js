@@ -1,4 +1,5 @@
 const { QuestionController } = require('./question.js');
+const { AnswerController } = require('./answer.js');
 
 exports.handler = async (event, context, callback) => {
     
@@ -11,7 +12,7 @@ exports.handler = async (event, context, callback) => {
     }
     
     if (path.startsWith('/numitor/answer')) {
-        
+        return await new AnswerController().processRequest(httpMethod, path, headers);
     }
     
     return {
