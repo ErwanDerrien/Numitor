@@ -55,7 +55,7 @@ class QuestionController {
         if (ddbResponse.Items.length === 0) {
             delete params.ExclusiveStartKey;
             ddbResponse = await ddbClient.scan(params).promise();
-        }
+        } 
 
         return {
             statusCode: 200,
