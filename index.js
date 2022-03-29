@@ -1,5 +1,6 @@
 const { QuestionController } = require('./question.js');
 const { AnswerController } = require('./answer.js');
+const { CredentialsController } = require('./credentials.js');
 
 exports.handler = async (event, context, callback) => {
     const { httpMethod, path, headers, body } = event;
@@ -12,6 +13,10 @@ exports.handler = async (event, context, callback) => {
 
     if (path.startsWith('/numitor/answer')) {
         return await new AnswerController().processRequest(httpMethod, path, headers, body);
+    }
+    
+    if (path.startsWith('/numitor/login')) {
+        return await new CredentialsController().processRequest(httpMethod, path, headers, body);
     }
 
     return {
