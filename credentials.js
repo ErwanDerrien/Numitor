@@ -24,12 +24,12 @@ class CredentialsController {
     async processGet(path, body) {
         body = JSON.parse(body);
 
-        const email = body.email;
+        const id = body.id;
         const password = body.password;
 
-        const ddbResponse = await ddbClient.get({ TableName: 'numitor.credentials', Key: { email: email } }).promise();
+        const ddbResponse = await ddbClient.get({ TableName: 'numitor.credentials', Key: { id: id } }).promise();
 
-        if (ddbResponse.Item.password !== password) {
+        if (ddbResponse.Item?.password !== password) {
             return {
                 statusCode: 401,
                 body: 'Invalid Credentials',
@@ -38,6 +38,7 @@ class CredentialsController {
 
         return {
             statusCode: 200,
+            body: JSON.stringify(id),
         };
     }
 }
