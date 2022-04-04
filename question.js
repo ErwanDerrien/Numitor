@@ -49,13 +49,13 @@ class QuestionController {
                 id: randomId,
             },
         };
-
+3
         var ddbResponse = await ddbClient.scan(params).promise();
 
         if (ddbResponse.Items.length === 0) {
             delete params.ExclusiveStartKey;
             ddbResponse = await ddbClient.scan(params).promise();
-        } 
+        }
 
         return {
             statusCode: 200,
@@ -64,9 +64,8 @@ class QuestionController {
     }
 
     async processPost(path, body) {
-        
         body = JSON.parse(body);
-        
+
         const id = body.id;
         const question = body.question;
         const answers = body.answers;
@@ -86,7 +85,7 @@ class QuestionController {
 
         return {
             statusCode: 201,
-            body: JSON.stringify(id),
+            body: id,
         };
     }
 
