@@ -49,7 +49,7 @@ class QuestionController {
                 id: randomId,
             },
         };
-3
+        3;
         var ddbResponse = await ddbClient.scan(params).promise();
 
         if (ddbResponse.Items.length === 0) {
@@ -60,6 +60,11 @@ class QuestionController {
         return {
             statusCode: 200,
             body: JSON.stringify(ddbResponse.Items[0]),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': 'true',
+                'Access-Control-Allow-Method': 'options, get, post',
+            },
         };
     }
 
